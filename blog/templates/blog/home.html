@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+{% block heading %}
+
+<div class="container my-4">
+    <span style="font-size: xx-large;">All Posts</span>
+    <hr>
+</div>
+{% endblock heading %}
+
+{% block body %}
+
+<div class="container ">
+    {% for post in posts %}
+    <div class="card m-4" style="width: 60rem; background-color: teal;">
+        <div class="card-body">
+            <h5 class="card-title" style="font-size: xx-large;">{{ post.title }}</h5>
+            <p class="card-text">{{post.desc}}</p>
+            <small class='ml-auto' style='color:black;font-size:larger'> Author- {{post.author}} </small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock body %}

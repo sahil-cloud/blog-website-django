@@ -1,0 +1,81 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+
+{% block heading %}
+<div class="container mb-2" style="font-size: x-large;">
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+Welcome, {{name}}
+</div>
+<div class="col-sm-2 col-md-2 offset-6">
+<a href="#" class="btn btn-secondary">Edit Profile</a>
+</div>
+</div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <a href="{% url 'addPost' %}" class="btn btn-info">Add Post</a>
+        </div>
+        <div class="col-sm-2 col-md-2 offset-6">
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for msg in messages %}
+
+<div class="alert alert-sucess alert-dismissible fade show m-3" role="alert" style="background-color:lightgreen">
+  <span style="color:black"> {{msg}} </span>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+<hr>
+{% endblock heading %}
+
+{% block body %}
+
+<div class="alert alert-warning text-center m-4" role="alert">
+    <span class="" style="font-size: x-large; color: black;">My Posts</span>
+</div>
+
+<div class="conatiner">
+<table class="table bg-secondary" >
+    <thead>
+        <tr>
+            <th scope="col-sm-3 col-md-3">Id</th>
+            <th scope="col-sm-3 col-md-3">Title</th>
+            <th scope="col-sm-3 col-md-3">Description</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for post in posts %}
+        <tr class="table-dark">
+            <th scope="row">{{post.id}}</th>
+            <td> {{post.title}} </td>
+            <td> {{post.desc}} </td>
+            <td>
+                
+                    <a href='{% url 'editPost' post.id %}' class="btn btn-warning m-1">
+                    Edit
+                    </a>
+               
+                <form action="{% url 'delPost' post.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger m-1" value="Delete">
+                    </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock body %}

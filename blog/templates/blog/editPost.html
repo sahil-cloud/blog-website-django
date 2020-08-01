@@ -1,0 +1,65 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Update Post
+{% endblock title %}
+
+
+{% block heading %}
+<div class="container my-4" style="font-size: xx-large;">
+
+</div>
+<div class="container mb-2" style="font-size: x-large;">
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+Update Post
+</div>
+<div class="col-sm-2 col-md-2 offset-6">
+<a href="{% url 'dashboard' %}" class="btn btn-danger">Cancel</a>
+</div>
+</div>
+</div>
+{% endblock heading %}
+
+{% block body %}
+
+{% if msg %}
+
+<div class="alert alert-sucess alert-dismissible fade show" role="alert" style="background-color:lightgreen">
+  <span style="color:black"> {{msg}} </span>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+{% endif %}
+
+<div class='container'>
+<div class="row">
+    <div class="col-md-4 col-sm-4 offset-4">
+    <form action="" method="POST" novalidate>
+    {% csrf_token %}
+{% for fm in form %}
+
+<div class='form-group mb-2'>
+{{fm.label_tag}} {{fm}} <span style="color: orangered;"> {{ fm.errors|striptags }} </span>
+</div>
+{% endfor %}
+
+{% if form.non_field_errors %}
+{% for err in form.non_field_errors %}
+<div class="alert alert-danger" role="alert">
+  {{ err }}
+</div>
+{% endfor %}
+{% endif %}
+
+<input type="submit" value="Update" class="btn btn-info mt-2">
+
+
+</form>
+</div>
+</div>
+</div>
+
+{% endblock body %}

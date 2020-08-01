@@ -1,0 +1,66 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Signup
+{% endblock title %}
+
+
+{% block heading %}
+<div class="container my-4" style="font-size: xx-large;">
+    Become an Author
+</div>
+
+{% if messages %}
+
+{% for msg in messages %}
+    
+ 
+  <div class="alert alert-{% if msg.tags %}{{msg.tags}}{% endif %} alert-dismissible fade show" role="alert">
+   {{ msg }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock heading %}
+
+{% block body %}
+
+<div class='container'>
+<div class="row">
+    <div class="col-md-4 col-sm-4 offset-4">
+    <form action="" method="POST" novalidate>
+    {% csrf_token %}
+{% for fm in form %}
+
+<div class='form-group mb-2'>
+{{fm.label_tag}} {{fm}} {% if fm.errors %}<div {% if fm.errors %} class='alert alert-danger mt-2' {% endif %}> {{ fm.errors|striptags }} </div>{% endif %} 
+</div>
+{% endfor %}
+
+{% if form.non_field_errors %}
+{% for err in form.non_field_errors %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{ err }}
+  
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+
+<input type="submit" value="Submit" class="btn btn-info mt-4 mb-5">
+
+
+</form>
+</div>
+</div>
+</div>
+
+{% endblock body %}
